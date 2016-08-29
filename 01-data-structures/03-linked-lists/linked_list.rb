@@ -42,23 +42,22 @@ end
 
   # This method removes `node` from the list and must keep the rest of the list intact.
   def delete(node)
-     if @head == node && @tail == node
-         @tail = nil
-         @head = nil
-     elsif @head == node
-         @head = @head.next
-     else #needs major refactoring..things got a little confused, but got 2 of 3 tests to pass
-         previous_node = @head
-         current_node = @head.next
-         if current_node == node && current_node == @tail
-          @tail = previous_node
-             elsif current_node == node && current_node != @tail
-                 previous_node.next = current_node.next
-             else
-                 previous_node = current_node
-                 current_node = current_node.next
-          end
-     end
+    if node == @head
+      temp_node = @head.next
+      @head.next = nil
+      @head = temp_node
+      return
+    end
+
+    if node == @tail
+      search_creepy(@tail)
+      @current_node.next = nil
+      @tail = @current_node
+      return
+    end
+
+    search_creepy(node)
+    @current_node.next = node.next
   end
 
   # This method adds `node` to the front of the list and must set the list's head to `node`.
@@ -83,5 +82,14 @@ end
       @head = @head.next
       return current_node
     end
+  end
+end
+
+private
+def search_creepy(hand)
+  @current_node = @head
+  #until @current_node.nil? || @current_node == node
+  until @current_node.next == hand
+    @current_node = @current_node.next
   end
 end
