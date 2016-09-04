@@ -1,0 +1,1 @@
+Doubling the array doesn't necessarily mean there will not be another collision. 
