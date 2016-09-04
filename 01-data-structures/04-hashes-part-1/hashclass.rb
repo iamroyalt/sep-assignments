@@ -1,5 +1,5 @@
 class HashClass
-
+##what needs to be done after a reset?
   def initialize(size)
     @items = Array.new(size)
   end
