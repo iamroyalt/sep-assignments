@@ -1,1 +1,6 @@
-Doubling the array doesn't necessarily mean there will not be another collision. 
+Doubling the size of the array could be a poor solution for several reasons.
+First, doubling the size of the array does not guarantee that there will not be another
+collision, which could lead to doubling the size of the array indefinitely(in a worst case scenario).
+Second, if the array continues to double in size it will create many potentially "unused spaces" which will
+affect the memory required. Also, it seems that it would affect the processing speed as the doubling
+process seeks to reorganize and shift keys around, multiple times. 

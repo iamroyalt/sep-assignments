@@ -6,17 +6,16 @@ class OpenAddressing
   end
 
   def []=(key, value)
-    movie_index = self.index(key, @items.size)
+    movie_index = index(key, @items.size)
     if @items[movie_index].nil?
       @items[movie_index] = Node.new(key, value)
     elsif @items[movie_index].key == key
       unless @items[movie_index].value == value
         @items[movie_index].value = value
-        self.resize
       end
     else
       self.resize
-      #self[key] = value
+      self[key] = value
     end
   end
 
@@ -62,7 +61,20 @@ class OpenAddressing
 
   # Resize the hash
   def resize
+    new_movie_index = @items
+    @items = Array.new(@items.length * 2)
 
+    new_movie_index.each do |movie_item|
+      unless movie_item.nil?
+        index = self.index(movie_item.key, @items.length)
+        if @items[index].nil?
+          @items[index] = movie_item
+        else
+          self.resize
+          self[movie_item.key] = movie_item.value
+        end
+      end
+    end
   end
 
 end
