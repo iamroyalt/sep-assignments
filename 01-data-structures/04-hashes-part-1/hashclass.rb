@@ -12,7 +12,6 @@ class HashClass
     elsif @items[movie_index].key == key
       unless @items[movie_index].value == value
         @items[movie_index].value = value
-        self.resize
       end
     else
       self.resize
@@ -24,7 +23,7 @@ class HashClass
   def [](key)
     movie_index = index(key, @items.size)
       if @items[movie_index] == nil
-        return "error"
+        return nil
       else
         @items[movie_index].value
       end
@@ -32,26 +31,19 @@ class HashClass
   end
 
   def resize
-    #create a new array
-    double_array = Array.new(@items.size)
-    #create an arrayto hold items
-    expanded_array = []
-    @items.each do |movie|
-      unless @item == nil
-        expanded_array << movie
+    new_movie_index = @items
+    @items = Array.new(@items.length * 2)
+
+    new_movie_index.each do |movie_item|
+      unless movie_item.nil?
+        index = self.index(movie_item.key, @items.length)
+        if @items[index].nil?
+          @items[index] = movie_item
+        else
+          self.resize
+          self[movie_item.key] = movie_item.value
+        end
       end
-    end
-    #wipe out the "too small"array
-    #map! mutates the original array
-    @items.map! do |array_item|
-      unless array_item == nil
-        array_item = nil
-      end
-    end
-    #found concat after trying toString, join
-    @items.concat(double_array)
-      expanded_array.each do |movie|
-      self[item.key] = item.value
     end
   end
 
