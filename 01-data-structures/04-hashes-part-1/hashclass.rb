@@ -33,7 +33,6 @@ class HashClass
   def resize
     new_movie_index = @items
     @items = Array.new(@items.length * 2)
-
     new_movie_index.each do |movie_item|
       unless movie_item.nil?
         index = self.index(movie_item.key, @items.length)
