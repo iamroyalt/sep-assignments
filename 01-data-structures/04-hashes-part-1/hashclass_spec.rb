@@ -58,12 +58,26 @@ RSpec.describe HashClass, type: Class do
     end
 
     it "sets the value of key to value" do
+      puts "---- 0 ----"
+      puts lotr_movies
       lotr_movies["The Lord of the Rings: The Fellowship of the Ring"] = "3 hours, 48 minutes"
+      puts "---- 1 ----"
+      puts lotr_movies
       lotr_movies["The Lord of the Rings: The Two Towers"] = "3 hours, 55 minutes"
+      puts "---- 2 ----"
+      puts lotr_movies
       lotr_movies["The Lord of the Rings: The Return of the King"] = "3 hours, 21 minutes"
+      puts "---- 3 ----"
+      puts lotr_movies
       lotr_movies["The Hobbit: An Unexpected Journey"] = "3 hours, 2 minutes"
+      puts "---- 4 ----"
+      puts lotr_movies
       lotr_movies["The Hobbit: The Desolation of Smaug"] = "3 hours, 7 minutes"
+      puts "---- 5 ----"
+      puts lotr_movies
       lotr_movies["The Hobbit: The Battle of Five Armies"] = "2 hours, 44 minutes"
+      puts "---- 6 ----"
+      puts lotr_movies
 
       expect(lotr_movies["The Lord of the Rings: The Fellowship of the Ring"]).to eq "3 hours, 48 minutes"
       expect(lotr_movies["The Lord of the Rings: The Two Towers"]).to eq "3 hours, 55 minutes"
