@@ -1,0 +1,27 @@
+Hashing: distribute entries of key/value pairs across an array of buckets. The
+         algorithm computes an index that points to where the entry can be found
+         when it is given a key.
+
+Separate Chaining: colliding entries are placed into the same location in the array
+                   which is referred to as a bucket. The hash builds a chain of values
+                   at this location.
+
+Open Addressing: colliding entries are placed in the next available location in the
+                 array. The hash uses either linear probing, quadratic probing or double
+                 hashing to find the next available location. If there is not one, the
+                 hash increases in size and re-hashes all entries.
+      Linear Probing: hash increments the colliding index by a constant number until an
+                      open location in the array is found. This same process is utilized during
+                      lookup as well.
+****************************************************************************************************
+Coalesced Hashing: Hybrid hashing function utilizing chaining and open addressing. It links
+                   together chains of nodes within the table. Coalesced Hashing is similiar to Open Addressing, it
+                   provides better space usage and cache advantages. It does not exhibit clustering
+                   and cannot have more elements than slots.
+
+Robin Hood Hashing: A variation on double-hashing collision. A new key may displace a key that is
+                    already placed if the count is larger than the key in that position. The intended
+                    effect is to reduce search times.
+
+2-Choice Hashing: Utilizes two different hash functions which compute two table locations. It is placed
+                  in the location that contains fewer objects.
