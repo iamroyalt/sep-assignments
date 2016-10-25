@@ -1,34 +1,42 @@
 require_relative 'node'
 
+
 class OpenAddressing
   def initialize(size)
     @items = Array.new(size)
+    @movie_count = 0
   end
 
   def []=(key, value)
-    movie_index = index(key, @items.size)
-    if @items[movie_index].nil?
-      @items[movie_index] = Node.new(key, value)
-    elsif @items[movie_index].key == key
-      unless @items[movie_index].value == value
-        @items[movie_index].value = value
-      end
+    index = index(key, @items.size)
+    node = Node.new(key, value)
+
+    if @items[index] == nil
+      @items[index] = node
+      @movie_count += 1
     else
-      self.resize
-      self[key] = value
+      open_movie_index = next_open_index(index)
+      if open_movie_index == -1
+        self.resize
+      return
+      else
+        @items[open_movie_index] = node
+        @movie_count += 1
+      end
     end
   end
 
   def [](key)
-    movie_index = self.index(key, @items.length)
-    next_movie_index = @items[movie_index].next
-    if next_movie_index == nil
-      @items[movie_index].value
-    else
-      @items[next_movie_index].value
+    index = self.index(key, self.size)
+    if @items[index] != nil
+      if @items[index].key == key
+        @items[index].value
+      else
+        key = @items[index].value
+      end
     end
-
   end
+
 
   # Returns a unique, deterministically reproducible index into an array
   # We are hashing based on strings, let's use the ascii value of each string as
@@ -44,37 +52,35 @@ class OpenAddressing
 
   # Given an index, find the next open index in @items
   def next_open_index(index)
-    movie_index = index + 1
-    while movie_index < @items.length
-      if @items[movie_index].nil?
-        return movie_index
+    count = index
+    while @items[count] != nil
+      if count == @items.size - 1
+        return -1
+      else
+        count += 1
       end
-      movie_index += 1
     end
-    return -1
+    return count
   end
 
   # Simple method to return the number of items in the hash
   def size
-    @items.length
+    @items.size
   end
 
   # Resize the hash
   def resize
-    new_movie_index = @items
-    @items = Array.new(@items.length * 2)
-
-    new_movie_index.each do |movie_item|
-      unless movie_item.nil?
-        index = self.index(movie_item.key, @items.length)
-        if @items[index].nil?
-          @items[index] = movie_item
+    old_movie = @items
+    @items = Array.new(@items.size * 2)
+    old_movie.each do |item|
+      if item != nil
+        index = self.index(item.key, self.size)
+        if @items[index] != nil
+          self[item.key] = item.value
         else
-          self.resize
-          self[movie_item.key] = movie_item.value
+          @items[index] = item
         end
       end
     end
   end
-
 end
