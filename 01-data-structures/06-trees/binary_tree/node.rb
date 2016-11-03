@@ -1,11 +1,11 @@
 class Node
   attr_accessor :title
-  attr_accessor :rating
+  attr_accessor :movie_rating
   attr_accessor :left
   attr_accessor :right
 
-  def initialize(title, rating)
+  def initialize(title, movie_rating)
     @title = title
-    @rating = rating
+    @movie_rating = movie_rating
   end
 end
