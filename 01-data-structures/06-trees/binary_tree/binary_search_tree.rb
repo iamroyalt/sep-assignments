@@ -38,13 +38,17 @@ attr_accessor :root
     end
   end
 
-  def delete(root, rating)
-    if root == nil
+  def delete(root, title)
+    if title == nil
       return nil
-    elsif rating < root.rating
-      root.left = self.delete(root.left, rating)
-    elsif rating > root.rating
-      root.right = self.delete(root.right, rating)
+    end
+
+    if root == nil
+      return root
+    elsif title < root.title
+      root.left = delete(root.left, title)
+    elsif title > root.title
+      root.right = delete(root.right, title)
     else
       if root.left == nil && root.right == nil
         return nil
