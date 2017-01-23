@@ -1,6 +1,7 @@
 require_relative 'node'
 
 class BinarySearchTree
+attr_accessor :root
 
   def initialize(root)
     @root = root
@@ -8,13 +9,13 @@ class BinarySearchTree
 
   def insert(root, node)
     if root != nil
-      if root.movie_rating > node.movie_rating
+      if root.rating > node.rating
         if root.left == nil
           root.left = node
         else
           self.insert(root.left, node)
         end
-      elsif root.movie_rating < node.movie_rating
+      elsif root.rating < node.rating
         if root.right == nil
           root.right = node
         else
@@ -27,35 +28,23 @@ class BinarySearchTree
   # Recursive Depth First Search
   #travel down single branch in search of desired element, if not found, travel up and
   #repeat the process with unvisited nodes
-  def find(root, movie_rating)
-    if movie_rating == nil
-     return nil
-   end
-
-   if root == nil
-     return nil
-   end
-   if rating == root.movie_rating
-     root
-   else
-     if rating < root.movie_rating
-       find(root.left, movie_rating)
-     elsif rating > root.movie_rating
-       find(root.right, movie_rating)
-     end
-   end
- end
-
-  def delete(root, movie_rating)
-    if movie_rating == nil
-      return nil
-    end
-    if root == nil
+  def find(root, data)
+    if root.title == data
       return root
-    elsif movie_rating < root.movie_rating
-      root.left = delete(root.left, movie_rating)
-    elsif movie_rating > root.movie_rating
-      root.right = delete(root.right, movie_rating)
+    else
+      left = find(root.left, data) if root.left
+      right = find(root.right, data) if root.right
+      left || right
+    end
+  end
+
+  def delete(root, rating)
+    if root == nil
+      return nil
+    elsif rating < root.rating
+      root.left = self.delete(root.left, rating)
+    elsif rating > root.rating
+      root.right = self.delete(root.right, rating)
     else
       if root.left == nil && root.right == nil
         return nil
@@ -66,6 +55,7 @@ class BinarySearchTree
       end
     end
   end
+
 
   # Recursive Breadth First Search
   #search an entire row of nodes before proceeding to the next
