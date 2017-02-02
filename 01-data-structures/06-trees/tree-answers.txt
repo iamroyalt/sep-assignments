@@ -1,0 +1,12 @@
+                    user        system      total        real
+tree insert         0.410000    0.010000    0.420000     (  0.427529)
+heap insert         0.160000    0.010000    0.170000     (  0.164154)
+                    user        system      total        real
+tree find           0.020000    0.000000    0.020000     (  0.023593)
+heap find           0.000000    0.000000    0.000000     (  0.000018)
+
+
+Binary Search would be best used in situations with a specific data structure
+regardless of speed or efficiency.
+
+Heap would be best used in a situation where speed/efficiency are the priority.  
